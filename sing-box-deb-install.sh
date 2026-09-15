@@ -13,7 +13,7 @@ case "${ARCH_RAW}" in
 esac
 echo  "当前设备架构${ARCH_RAW}"
 
-VERSION=$(curl -s "https://api.github.com/repos/SagerNet/sing-box/releases?per_page=1&page=0" \
+VERSION=$(curl -fsSL "https://api.github.com/repos/SagerNet/sing-box/releases?per_page=20" | jq -r '[.[] | select(.prerelease == true)][0].tag_name' | sed 's/^v//')
     | grep tag_name \
     | cut -d ":" -f2 \
     | sed 's/\"//g;s/\,//g;s/\ //g;s/v//')
